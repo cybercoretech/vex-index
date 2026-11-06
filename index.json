@@ -1,4 +1,15 @@
 {
   "schema": 1,
-  "packages": {}
+  "packages": {
+    "vexstd": {
+      "description": "Small standard helpers for Vex: integer math and Result utilities",
+      "versions": {
+        "0.1.0": {
+          "url": "https://github.com/cybercoretech/vexstd/releases/download/v0.1.0/vexstd-0.1.0.tar.gz",
+          "sha256": "46b42b02ba72c5e34acf811796784038082114fef5d312a1cd1cb46d78f88e91",
+          "size": 3374
+        }
+      }
+    }
+  }
 }
