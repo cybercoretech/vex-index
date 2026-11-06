@@ -1,0 +1,31 @@
+name: Validate index
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate index.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Structure, immutability and checksums
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base_ref="origin/${{ github.base_ref }}"
+          else
+            base_ref="${{ github.event.before }}"
+          fi
+          if git cat-file -e "$base_ref:index.json" 2>/dev/null; then
+            git show "$base_ref:index.json" > "$RUNNER_TEMP/base.json"
+            ./scripts/validate.sh "$RUNNER_TEMP/base.json"
+          else
+            ./scripts/validate.sh
+          fi
